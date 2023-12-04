@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
-import { CgProfile, CgMenuGridO } from "react-icons/cg";
-import { GrLogout, GrNotification } from "react-icons/gr";
-import { RxExit } from "react-icons/rx";
+
 import { MdOutlineDateRange } from "react-icons/md";
-import ModalComponent from "../Modal/ModalComponent";
-import QuickAction from "../Modal/QuickAction/QuickAction";
-import Notification from "../Modal/Notification/Notification";
-import Logout from "../Modal/LogOut/Logout";
-import { RiMenuFoldLine } from "react-icons/ri";
 import { RootState } from "@/context/Redux/store/store";
 import { useSelector } from "react-redux";
 
@@ -37,36 +30,7 @@ const Header = (props: {
         <div className=" flex items-center justify-center gap-5 ">
           <div className=" text-2xl font-semibold font-mono">{username}</div>
         </div>
-        <div className=" flex items-center justify-center gap-5 md:ml-40">
-          {/* <ModalComponent
-            buttonText={<RiMenuFoldLine />}
-            buttonClass="bg-white p-3 rounded-lg"
-            modalContent={
-              <div>
-                <QuickAction />
-              </div>
-            }
-          />
-          <ModalComponent
-            buttonText={<GrNotification />}
-            buttonClass="bg-white p-3 rounded-lg"
-            modalContent={
-              <div>
-                <Notification />
-              </div>
-            }
-          /> */}
-          <div>Carpark Managemet System</div>
-          <ModalComponent
-            buttonText={<GrLogout />}
-            buttonClass="bg-white p-3 rounded-lg"
-            modalContent={
-              <div>
-                <Logout />
-              </div>
-            }
-          />
-        </div>
+        <div className=" flex items-center justify-center gap-5 md:ml-40"></div>
 
         <div className=" hidden  md:flex items-center justify-center gap-3 bg-white p-3 rounded-md">
           <MdOutlineDateRange />
