@@ -305,7 +305,7 @@ function Navbar() {
                         Sign Up
                       </span>
                     </Link>
-                    <Link href="/signin/login">
+                    <Link href="/signin/user">
                       <span className="flex items-center gap-2 font-semibold mt-5 text-black">
                         <MdPermIdentity className="text-3xl" />
                         Sign In
