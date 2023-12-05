@@ -144,7 +144,7 @@ const Body = () => {
                     logo={<TbCarSuv />}
                     logoBg="bg-[#FFF5F3]"
                     title="Reserved Booking"
-                    amount={totalUser ?? 0}
+                    amount={0}
                   />
                 )}
                 {isUser === "admin" && (
