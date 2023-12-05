@@ -13,6 +13,7 @@ interface FormData {
   carpark_id: number;
   space_name: string;
   space_type: string;
+  amount: number;
 }
 
 interface Carpark {
@@ -163,6 +164,37 @@ const Page = () => {
                   {errors.space_name && (
                     <span className="text-red-500">
                       {errors.space_name.message}
+                    </span>
+                  )}
+                </div>
+                <div className="w-full">
+                  <h2 className="font-semibold text-sm md:text-lg xl:text-xl my-2">
+                    Space Price
+                  </h2>
+
+                  <div
+                    className="bg-gray-100 border border-transparent rounded-md px-5 w-full font-semibold py-3
+                   outline-none  gap-2 items-center hover:border-red-500"
+                  >
+                    <div className="flex justify-between gap-4 ">
+                      <AiOutlineCar size={20} />
+                      <Controller
+                        name="amount"
+                        control={control}
+                        defaultValue={0}
+                        render={({ field }) => (
+                          <input
+                            {...field}
+                            type="number"
+                            className="h-full w-full bg-transparent border-none outline-none "
+                          />
+                        )}
+                      />
+                    </div>
+                  </div>
+                  {errors.amount && (
+                    <span className="text-red-500">
+                      {errors.amount.message}
                     </span>
                   )}
                 </div>
