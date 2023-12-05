@@ -14,7 +14,7 @@ export const capital = [
   },
   {
     title: "Capital Account",
-    amount: " ₦14,000,000",
+    amount: " ₦15,000,000",
     logo: " ",
   },
 ];
