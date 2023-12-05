@@ -64,37 +64,4 @@ export const activities = [
       </div>
     ),
   },
-  {
-    id: 5,
-    title: "Bus",
-    amount: <p className="text-[#FF852D] text-sm"> ₦14,000,000</p>,
-    logo: (
-      <div className="bg-[#F9E8DE] text-3xl rounded-md p-2">
-        {" "}
-        <TbBus />
-      </div>
-    ),
-  },
-  {
-    id: 6,
-    title: "Stationaries",
-    amount: <p className="text-[#F52E2E] text-sm"> ₦14,000,000</p>,
-    logo: (
-      <div className="bg-[#F7B1B3] text-3xl rounded-md p-2">
-        {" "}
-        <RiPencilRulerFill />
-      </div>
-    ),
-  },
-  {
-    id: 7,
-    title: "Stationaries",
-    amount: <p className="text-[#04A10B] text-sm"> ₦14,000,000</p>,
-    logo: (
-      <div className="bg-[#F7B1B3] text-3xl rounded-md p-2">
-        {" "}
-        <RiPencilRulerFill />
-      </div>
-    ),
-  },
 ];

@@ -3,26 +3,17 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { AiOutlineCar, AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import {
-  MdDashboard,
-  MdOutlineConnectWithoutContact,
-  MdOutlineSupportAgent,
-  MdPermIdentity,
-} from "react-icons/md";
-import { FaHome } from "react-icons/fa";
-import { BsBox2Heart, BsPersonBoundingBox } from "react-icons/bs";
-import { BiLogOut, BiLogoInvision, BiTrip, BiUserCircle } from "react-icons/bi";
-
+import { MdDashboard, MdPermIdentity } from "react-icons/md";
+import { BsPersonBoundingBox } from "react-icons/bs";
+import { BiLogOut } from "react-icons/bi";
 import { usePathname, useRouter } from "next/navigation";
-import { CiLogin } from "react-icons/ci";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { GiSpaceNeedle } from "react-icons/gi";
-import { RiLoginBoxLine } from "react-icons/ri";
 import { TbBrandBooking, TbLogin2 } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/context/Redux/store/store";
-import { setUser } from "@/context/Redux/slices/authSlice";
+import { setToken, setUser } from "@/context/Redux/slices/authSlice";
 import { IoIosLogIn, IoMdLogOut } from "react-icons/io";
+import { toast } from "react-toastify";
 
 function Navbar() {
   const router = useRouter();
@@ -104,16 +95,16 @@ function Navbar() {
     }
   }, [nav]);
 
-  //   const handleLogout = () => {
-  //     dispatch(setUser(null));
-  //     dispatch(setToken(null));
+  const handleLogout = () => {
+    dispatch(setUser(null));
+    dispatch(setToken(null));
 
-  //     localStorage.removeItem("user");
-  //     localStorage.removeItem("access_token");
-  //     toast.success("Logout!,Successfully ");
+    localStorage.removeItem("user");
+    localStorage.removeItem("access_token");
+    toast.success("Logout!,Successfully ");
 
-  //     router.push("/signin");
-  //   };
+    router.push("/signin/user");
+  };
 
   return (
     <div
@@ -137,26 +128,17 @@ function Navbar() {
           >
             <li className={`flex  items-center gap-1`}>
               <AiOutlineCar size={30} />
-              <span className="mr-5 font-semibold "> Car Park</span>
-            </li>
-          </Link>
-          <Link
-            className={`${
-              pathname === "/" ? " border-b-2 border-red-600 pb-2" : ""
-            }`}
-            href="/"
-          >
-            <li className="flex items-center gap-1">
-              <GiSpaceNeedle size={30} />
-              <span className="mr-5 font-semibold ">Available Space</span>
+              <span className="mr-5 font-semibold "> Home</span>
             </li>
           </Link>
 
           <Link
             className={`${
-              pathname === "/" ? " border-b-2 border-red-600 pb-2" : ""
+              pathname === "/space-booking"
+                ? " border-b-2 border-red-600 pb-2"
+                : ""
             }`}
-            href="/"
+            href="/space-booking"
           >
             <li className="flex items-center gap-1">
               <TbBrandBooking size={30} />
@@ -187,7 +169,7 @@ function Navbar() {
                       <div className="hover:bg-red-700 hover:text-white flex items-center gap-2 justify-center px-5">
                         <IoMdLogOut size={25} className="" />
                         <button
-                          //   onClick={handleLogout}
+                          onClick={handleLogout}
                           className="block w-full text-left hover:text-white  py-2 text-sm text-gray-700 "
                         >
                           Logout

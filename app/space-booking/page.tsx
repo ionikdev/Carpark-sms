@@ -1,14 +1,11 @@
 "use client";
 import axiosClient from "@/Services/axiosInstance";
-import SpaceDetails from "@/components/Dashboard/SpaceDetails";
-
+import UserDetails from "@/components/Dashboard/SpaceDetails";
 import DefaultLayout from "@/components/Layout/DefaultLayout";
 import ModalWrapper from "@/components/Modal/ModalWrapper";
 import { RootState } from "@/context/Redux/store/store";
 import React, { useEffect, useState } from "react";
-
-import { CgSpaceBetweenV } from "react-icons/cg";
-
+import { CgSpaceBetweenV, CgSearch } from "react-icons/cg";
 import { useSelector } from "react-redux";
 
 interface Carpark {
@@ -21,6 +18,7 @@ const page = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [space, setSpace] = useState<Carpark[]>([]);
+  const [searchValue, setSearchValue] = useState("");
 
   const token = useSelector((state: RootState) => state.auth.token);
   const client = axiosClient(token);
@@ -28,6 +26,14 @@ const page = () => {
   const openModal6 = (trip: any) => {
     setSelectedUser(trip);
     setShowModal6(true);
+  };
+  const handleSearch = () => {
+    // Perform search based on the searchValue state
+    // You can modify this function to implement the search logic
+    // For example, filter the 'space' array based on the search input value
+    // Update 'space' state with filtered results
+    // For demonstration purposes, I'll simply console log the search value
+    console.log("Search Value:", searchValue);
   };
 
   useEffect(() => {
@@ -66,19 +72,34 @@ const page = () => {
     return <div>Loading...</div>;
   }
   return (
-    <DefaultLayout>
-      <div className=" mt-16">
-        <div className="flex items-center gap-2 text-sm font-medium">
-          <span
-            className="text-black text-center font-bold text-lg 
-          mx-auto md:text-2xl mb-5"
-          >
-            Book, Reserve and Pay for Carpack Space
-          </span>
+    <>
+      <div className="pt-36 px-5">
+        <div className=" mx-auto mb-5">
+          <div>
+            <span className="text-black flex justify-center  text-center font-bold text-lg md:text-3xl">
+              Book, Reserve and Pay for Carpack Space
+            </span>
+          </div>
+          {/* <div className=" w-full flex mt-10 px-5  items-center">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="border border-gray-300  px-3 py-4 rounded-md rounded-l-md focus:outline-none focus:border-blue-500"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+            <button
+              className="bg-red-600 text-white rounded-md px-4 py-4 rounded-r-md flex items-center"
+              onClick={handleSearch}
+            >
+              <CgSearch className="mr-2" />
+              Search
+            </button>
+          </div> */}
         </div>
 
         {/* Trip card number 2 */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-2 mt-5">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-3 mt-10">
           {space.map((space: any) => (
             <div
               key={space.id}
@@ -185,9 +206,9 @@ const page = () => {
       </div>
 
       <ModalWrapper isVisible={showModal6} onClose={() => setShowModal6(false)}>
-        {selectedUser && <SpaceDetails space={selectedUser} />}
+        {selectedUser && <UserDetails space={selectedUser} />}
       </ModalWrapper>
-    </DefaultLayout>
+    </>
   );
 };
 export default page;

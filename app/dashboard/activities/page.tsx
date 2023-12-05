@@ -59,7 +59,7 @@ function page() {
     <DefaultLayout>
       <div className="flex flex-col w-full pt-10 px-4 bg-white rounded-2xl ">
         <div className="header">
-          <h2 className="text-xl font-bold">Transactions</h2>
+          <h2 className="text-xl font-bold">Activities</h2>
         </div>
         <div className="overflow-x-auto">
           {/* {transactions.length === 0 ? (
@@ -74,9 +74,9 @@ function page() {
                   Reference
                 </th>
                 <th className="px-6 py-3 text-left  tracking-wider">Amount</th>
-                <th className="px-6 py-3 text-left tracking-wider">Type</th>
-                <th className="px-6 py-3 text-left tracking-wider">From</th>
-                <th className="px-6 py-3 text-left tracking-wider">To</th>
+                <th className="px-6 py-3 text-left tracking-wider">Caprack</th>
+                <th className="px-6 py-3 text-left tracking-wider">Space</th>
+                <th className="px-6 py-3 text-left tracking-wider">date</th>
                 <th className="px-6 py-3 text-left tracking-wider">Status</th>
               </tr>
             </thead>

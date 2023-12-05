@@ -1,7 +1,6 @@
 import axios, { AxiosInstance, AxiosError, AxiosResponse } from "axios";
 
-// const apiURL = process.env.NEXT_PUBLIC_API_URL;
-const apiURL = "http://127.0.0.1:8000/api/";
+const apiURL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const axiosClient = (token: string | null = null): AxiosInstance => {
   const headers = token

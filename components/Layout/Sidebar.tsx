@@ -16,8 +16,10 @@ import { usePathname } from "next/navigation";
 import { GiJeep } from "react-icons/gi";
 import { useSelector } from "react-redux";
 import { RootState } from "@/context/Redux/store/store";
-import { RiOperaFill } from "react-icons/ri";
+import { RiOperaFill, RiSecurePaymentLine } from "react-icons/ri";
 import { MdFeedback } from "react-icons/md";
+import { FaHistory } from "react-icons/fa";
+import { TbBrandBooking } from "react-icons/tb";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -139,19 +141,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   : " px-5 "
               }`}
             >
-              <AiOutlineDingtalk />
+              <TbBrandBooking />
               {!isSidebarMinimized && <p>Booking</p>}
             </li>
           </Link>
-          {isUser === "user" ? (
+          {isUser === "user" || isUser === "operator" ? (
             <Link href="/dashboard/activities">
               <li
                 className={` flex items-center mt-5  w-full gap-2 ${
                   pathname === "/dashboard/activities"
                     ? !isSidebarMinimized
                       ? "bg-red-700 text-white font-bold py-3 px-5  rounded-2xl w-full"
-                      : " "
-                    : ""
+                      : "px-5 "
+                    : " px-5 "
                 }`}
               >
                 <LuActivity />
@@ -171,15 +173,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 }`}
               >
                 <RiOperaFill />
-                {!isSidebarMinimized && <p>Add Operators</p>}
+                {!isSidebarMinimized && <p>Add Operator</p>}
               </li>
             </Link>
           ) : null}
-          {isUser === "user" ? (
-            <Link href="/dashboard/add-operators">
+          {isUser === "user" || isUser === "operator" ? (
+            <Link href="/dashboard/feedback">
               <li
                 className={` flex items-center mt-5  w-full gap-2 ${
-                  pathname === "/dashboard/add-operators"
+                  pathname === "/dashboard/feedback"
                     ? !isSidebarMinimized
                       ? "bg-red-700 text-white font-bold py-3 px-5  rounded-2xl w-full"
                       : "px-5 "
@@ -187,15 +189,57 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 }`}
               >
                 <MdFeedback />
-                {!isSidebarMinimized && <p>Feedback</p>}
+                {!isSidebarMinimized && <p> Send Feedbacks</p>}
+              </li>
+            </Link>
+          ) : null}
+          {isUser === "operator" || isUser === "admin" ? (
+            <Link href="/dashboard/feedback">
+              <li
+                className={` flex items-center mt-5  w-full gap-2 ${
+                  pathname === "/dashboard/feedback"
+                    ? !isSidebarMinimized
+                      ? "bg-red-700 text-white font-bold py-3 px-5  rounded-2xl w-full"
+                      : "px-5 "
+                    : " px-5 "
+                }`}
+              >
+                <MdFeedback />
+                {!isSidebarMinimized && <p> View Feedback</p>}
+              </li>
+            </Link>
+          ) : null}
+          {isUser === "admin" ? (
+            <Link href="/dashboard/feedback">
+              <li
+                className={` flex items-center mt-5  w-full gap-2 ${
+                  pathname === "/dashboard/feedback"
+                    ? !isSidebarMinimized
+                      ? "bg-red-700 text-white font-bold py-3 px-5  rounded-2xl w-full"
+                      : "px-5 "
+                    : " px-5 "
+                }`}
+              >
+                <RiSecurePaymentLine />
+                {!isSidebarMinimized && <p>Payment</p>}
               </li>
             </Link>
           ) : null}
 
-          <li className=" flex items-center gap-2 mt-5">
-            <BsRecordBtn />
-            {!isSidebarMinimized && <p>Payment History</p>}
-          </li>
+          <Link href="/dashboard/history">
+            <li
+              className={` flex items-center mt-5  w-full gap-2 ${
+                pathname === "/dashboard/history"
+                  ? !isSidebarMinimized
+                    ? "bg-red-700 text-white font-bold py-3 px-5  rounded-2xl w-full"
+                    : "px-5 "
+                  : " px-5 "
+              }`}
+            >
+              <FaHistory />
+              {!isSidebarMinimized && <p>History</p>}
+            </li>
+          </Link>
         </ul>
       </main>
     </aside>

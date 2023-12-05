@@ -3,10 +3,19 @@ import React, { useEffect, useState } from "react";
 import DefaultLayout from "@/components/Layout/DefaultLayout";
 import { activities } from "@/components/UserComponent/DashboardData";
 import { AiOutlineBank, AiFillPieChart } from "react-icons/ai";
-import { BsActivity, BsFillCreditCard2FrontFill } from "react-icons/bs";
-import { TbActivityHeartbeat, TbCarSuv } from "react-icons/tb";
+import {
+  BsActivity,
+  BsCookie,
+  BsFillCreditCard2FrontFill,
+} from "react-icons/bs";
+import {
+  TbActivityHeartbeat,
+  TbCarSuv,
+  TbCurrencyTaka,
+  TbLayoutAlignMiddle,
+} from "react-icons/tb";
 import { FaWallet } from "react-icons/fa";
-import { CgMenuGridO } from "react-icons/cg";
+import { CgArrangeFront, CgMenuGridO } from "react-icons/cg";
 import { GiMoneyStack } from "react-icons/gi";
 import LineChart from "@/components/Charts/LineChart";
 import DoughnutChat from "@/components/Charts/DoughnutChat";
@@ -15,6 +24,10 @@ import { activitiesProps } from "./types";
 import { useSelector } from "react-redux";
 import axiosClient from "@/Services/axiosInstance";
 import { RootState } from "@/context/Redux/store/store";
+import {
+  MdOutlineAspectRatio,
+  MdOutlinePausePresentation,
+} from "react-icons/md";
 
 type Amount = {
   logo?: React.ReactElement<any, string | React.JSXElementConstructor<any>>;
@@ -26,8 +39,8 @@ type Amount = {
 const Account = ({ logo, title, amount, logoBg }: Amount) => {
   return (
     <div className="flex gap-3">
-      <span className={`text-3xl rounded-md p-2 ${logoBg}`}>{logo}</span>
-      <div className="flex flex-col text-center mx-auto items-start align-middle ">
+      <span className={`text-3xl items-center rounded-md p-2`}>{logo}</span>
+      <div className="flex flex-col items-center text-center mx-auto  align-middle ">
         <p className="text-sm">{title}</p>
         <div className="flex items-center">
           <span className="font-bold text-center">{amount}</span>
@@ -40,9 +53,10 @@ const Account = ({ logo, title, amount, logoBg }: Amount) => {
 const Body = () => {
   const [totalUser, setTotalUser] = useState<0 | null>(null);
   const [totalOperator, setTotalOperator] = useState<0 | null>(null);
-  const [totalAdmin, setTotalAdmin] = useState<0 | null>(null);
+  const [totalAmount, setTotalAmount] = useState<" " | null>(null);
   const [totalCarPack, setTotalCarpack] = useState<0 | null>(null);
   const [totalSpace, setTotalSpace] = useState<0 | null>(null);
+  const [isUserBooking, setIsUserBooking] = useState<0 | null>(null);
 
   const token = useSelector((state: RootState) => state.auth.token);
   const client = axiosClient(token);
@@ -58,9 +72,10 @@ const Body = () => {
         if (isMounted) {
           setTotalUser(response.data.data.total_users);
           setTotalOperator(response.data.data.total_operators);
-          setTotalAdmin(response.data.data.total_admins);
+          setTotalAmount(response.data.data.total_payment);
           setTotalCarpack(response.data.data.total_carpack);
           setTotalSpace(response.data.data.total_space);
+          setIsUserBooking(response.data.data.total_user_bookings);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -77,12 +92,12 @@ const Body = () => {
       <main className="h-full">
         <div className="flex flex-col gap-10 md:grid md:grid-cols-7">
           {/* First Section */}
-          <div className="flex flex-col h-screen gap-5 overflow-y-auto md:col-span-5 md:ml-10 ">
+          <div className="flex items-start flex-col h-screen gap-5 overflow-y-auto md:col-span-5 md:ml-10 ">
             <div className="flex lg:flex-row flex-col  md:items-center justify-between md:px-4 gap-10 md:gap-1 bg-[#FFFFFF] w-[fit] h-[fit] p-10 rounded-lg shadow-sm shadow-gray-300">
               <div>
                 {isUser === "admin" && (
                   <Account
-                    logo={<BiUserPlus />}
+                    logo={<CgArrangeFront />}
                     logoBg="bg-[#FFF5F3]"
                     title="Total Users"
                     amount={totalUser ?? 0}
@@ -90,10 +105,18 @@ const Body = () => {
                 )}
                 {isUser === "user" && (
                   <Account
-                    logo={<TbCarSuv />}
+                    logo={<BsCookie />}
                     logoBg="bg-[#FFF5F3]"
-                    title="Total Booking"
-                    amount={totalUser ?? 0}
+                    title="Bookings"
+                    amount={isUserBooking ?? 0}
+                  />
+                )}
+                {isUser === "operator" && (
+                  <Account
+                    logo={<MdOutlineAspectRatio />}
+                    logoBg="bg-[#BFE3F5]"
+                    title="Total Carpack Created"
+                    amount={totalCarPack ?? 0}
                   />
                 )}
               </div>
@@ -103,18 +126,48 @@ const Body = () => {
                     logo={<FaWallet />}
                     logoBg="bg-[#BFE3F5]"
                     title="Total Space Assigned"
-                    amount={totalCarPack ?? 0}
+                    amount={totalSpace ?? 0}
+                  />
+                )}
+                {isUser === "admin" && (
+                  <Account
+                    logo={<FaWallet />}
+                    logoBg="bg-[#BFE3F5]"
+                    title="Total Operator  "
+                    amount={totalOperator ?? 0}
                   />
                 )}
               </div>
-              <div className="px-3 border-r border-gray-200 ">
+              <div className="border-r border-gray-200 ">
+                {isUser === "user" && (
+                  <Account
+                    logo={<TbCarSuv />}
+                    logoBg="bg-[#FFF5F3]"
+                    title="Reserved Booking"
+                    amount={totalUser ?? 0}
+                  />
+                )}
+                {isUser === "admin" && (
+                  <Account
+                    logo={<TbCarSuv />}
+                    logoBg="bg-[#FFF5F3]"
+                    title="Total Payment"
+                    // @ts-ignore
+                    amount={new Intl.NumberFormat("en-NG", {
+                      style: "currency",
+                      currency: "NGN",
+                    }).format(Number(totalAmount ?? 0))}
+                  />
+                )}
+              </div>
+              {/* <div className="px-3 border-r border-gray-200 ">
                 <Account
                   logo={<AiOutlineBank />}
                   logoBg="bg-[#BFE3F5]"
                   title="Total Payment"
                   amount={totalUser ?? 0}
                 />
-              </div>
+              </div> */}
             </div>
             {/* Middle Body */}
             <div className="flex flex-col gap-5 md:grid md:grid-cols-2">
@@ -145,18 +198,6 @@ const Body = () => {
                       <BsFillCreditCard2FrontFill />
                     </span>
                     <span>Initiate a transfer transaction</span>
-                  </div>
-                  <div className="flex items-center justify-around gap-2 p-2 border border-gray-300 rounded-xl">
-                    <span className="text-xl">
-                      <FaWallet />
-                    </span>
-                    <span>Fund operations account</span>
-                  </div>
-                  <div className="flex items-center justify-around gap-2 p-2 border border-gray-300 rounded-xl">
-                    <span className="text-xl">
-                      <GiMoneyStack />
-                    </span>
-                    <span>Record a cash transaction</span>
                   </div>
                 </div>
               </div>
